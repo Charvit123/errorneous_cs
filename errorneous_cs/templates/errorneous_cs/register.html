@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+    <body>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <b>Username: </b>{{form.username}} <br>
+            <b>Email   : </b>{{form.email}} <br>
+            <b>Password:</b>{{form.password1}} <br>
+            <b>Password:</b>{{form.password2}} <br>
+            <input type="submit" value="SignUp">
+            
+        </form>
+        {{form.errors}}
+        <div>
+            Already have an account? <a href="{% url 'errorneous_cs:login' %}">Login</a>
+        </div>
+    </body>
+</html>

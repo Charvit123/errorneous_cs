@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <form method="POST">
+            {% csrf_token %}
+            Username: <input name="username" type="text"><br>
+            Password: <input name="password" type="password"><br>
+            <input type="submit" value="login"><br>
+        </form>
+        <div class="error">
+            {% for message in messages %}
+                <p id="messages">{{message}}</p>
+            {% endfor %}
+        </div>
+        Don't have an account? <a href="{% url 'errorneous_cs:register' %}">Register</a>
+    </body>
+</html>
