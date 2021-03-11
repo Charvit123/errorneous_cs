@@ -1,4 +1,6 @@
-{% extends 'account/main.html' %} {% load static %} {% block content %}
+{% extends 'account/main.html' %} 
+{% load static %} 
+{% block content %}
 <style>
   .row {
     display: table;
@@ -248,16 +250,16 @@
           </thead>
           <tbody class="body-half-screen">
             {% for question in questions %}
-            <tr class="tr">
-              <th class="td">{{question.id}}</th>
-              <th class="td">
+            <tr>
+              <th>{{question.id}}</th>
+              <th>
                 <a href="{% url 'question:question' question_id=question.id %}"
                   >{{question.title}}</a
                 >
               </th>
-              <th class="td">{{question.like.all.count}}</th>
+              <th>{{question.like.all.count}}</th>
               {% if is_self %}
-              <th class="td">
+              <th>
                 <a
                   href="{% url 'question:remove_question' question_id=question.id %}"
                   >Remove</a

@@ -16,14 +16,170 @@
     margin-top: 1.3cm;
     margin-left: 2.8cm;
     padding-bottom: 3.5em;
+    align-items: center;
+  }
+
+  .space{
+    margin-top: 1cm;
+  }
+
+  .images{
+    border-radius: 15px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .table-scroll {
+    /*width:100%; */
+    display: block;
+    /* empty-cells: show; */
+    width: 33cm;
+    margin-left: 1cm;
+    padding-top: 1cm;
+    /* Decoration */
+    border-spacing: 0;
+    /* border: rgba(130, 130, 170, 0.1); */
+  }
+
+  .table-scroll thead {
+    border-radius: 15px;
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow-y: hidden;
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+
+  .table-scroll tbody {
+    border-radius: 15px;
+    /* Position */
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 10cm;
+    padding-bottom: 2.5cm;
+    overflow-y: scroll;
+    /* Decoration */
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .table-scroll tr {
+    width: 100%;
+    display: flex;
+  }
+
+  .table-scroll td,
+  .table-scroll th {
+    flex-basis: 100%;
+    flex-grow: 2;
+    display: block;
+    padding: 1rem;
+    text-align: left;
+  }
+
+  /* Other options */
+
+  .table-scroll.small-first-col td:first-child,
+  .table-scroll.small-first-col th:first-child {
+    flex-basis: 20%;
+    flex-grow: 1;
+  }
+
+  .table-scroll tbody tr:nth-child(2n) {
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+
+  .body-half-screen {
+    max-height: 50vh;
+  }
+
+  .small-col {
+    flex-basis: 10%;
+  }
+
+  .table-scroll ::-webkit-scrollbar {
+    width: 6px;
+  }
+  .table-scroll ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  .table-scroll ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .search a {
+    font-family: sans-serif;
+    display: block;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    list-style: none;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    /*margin: 2px;*/
+    padding: 4px;
+    justify-content: center;
+  }
+  .search a::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 70%;
+    z-index: -1;
+    transition: 0.2s;
+    border-radius: 25px;
+    color: black;
+  }
+  .search a:hover {
+    color: black;
+  }
+  .search a:hover::before {
+    background: linear-gradient(to bottom, #e8edec, #d2d1d3);
+    box-shadow: 0px 3px 20px 0px black;
+    transform: scale(1.2);
+  }
+  .noresult{
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
   }
 </style>
 <div class="search">
-  {% if accounts %} {% for account in accounts %}
-  <img src="{{account.0.profile_image.url}}" />
-  <a href="{% url 'account:view' user_id=account.0.id %}">
-    <h4>{{account.0.username}}</h4>
-  </a>
-  {% endfor %}{% endif %}
+  <div class="space">
+    <table class="table-scroll small-first-col">
+      <tbody>
+        {% if accounts %} 
+          {% for account in accounts %}
+            <tr>
+              <td><img class="images" src="{{account.0.profile_image.url}}" /></td>
+              <td><a href="{% url 'account:view' user_id=account.0.id %}">
+                {{account.0.username}}
+              </a>
+              <br>
+                {% if account.0 == user %}
+                  This is you
+                {% endif %}
+              </td>
+              <td>{{account.0.email}}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+        <tr>
+          <td>
+            <div class="noresult">
+              <h2>No Result Found!!</h2>
+              <h5>No Search Found as {{search_query}}!!</h5>
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

@@ -101,10 +101,11 @@ def account_view(request, *args, **kwargs):
             is_self = False
         elif not user.is_authenticated:
             is_self = False
-        elif questions[0].auth != user and user.is_authenticated:
-            is_self = False
-        elif not questions:
-            return HttpResponse("No question!!")
+        elif questions:
+            if questions[0].auth != user and user.is_authenticated:
+                is_self = False
+        # elif not questions:
+        #     return HttpResponse("No question!!")
 
         context['is_self'] = is_self
         context['is_friend'] = is_friend
@@ -127,6 +128,8 @@ def account_search_view(request, *args, **kwargs):
             for account in search_results:
                 accounts.append((account, False))
             context['accounts'] = accounts
+            context['user'] = request.user
+            context['search_query'] = search_query
     return render(request, "account/search_results.html", context)
 
 
