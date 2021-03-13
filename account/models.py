@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+# from sorl.thumbnail import ImageField, get_thumbnail
 # Create your models here.
 
 
@@ -72,3 +73,8 @@ class Account(AbstractBaseUser):
     # Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)
     def has_module_perms(self, app_label):
         return True
+
+    # def save(self, *args, **kwargs):
+    #     if self.image:
+    #         self.image = get_thumbnail(self.image, '500x600', quality=99, format='JPEG')
+    #     super(MyPhoto, self).save(*args, **kwargs)

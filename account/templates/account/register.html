@@ -1,6 +1,6 @@
 {% load static %}
 <style>
-  /* body {
+  body {
     background: url("../../static/background_image.jpg") center/cover no-repeat;
     height: 100vh;
     margin: 0;
@@ -134,18 +134,18 @@
     flex-direction: column;
     align-items: center;
     padding-top: -150px;
-  } */
+  }
 </style>
 
 <!DOCTYPE html>
 <html>
   <head>
     <title>Register</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">-->
   </head>
   <body>
     <div class="register">
-      <img src="#" width="72" height="72">
+      <img src="../../static/images/default_image.png" width="102" height="102" style="margin:10px 10px 10px 152px;border-radius:43%;">
       <form method="POST">
         {% csrf_token %}
         <label for="username">Username</label>

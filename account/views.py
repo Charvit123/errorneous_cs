@@ -104,8 +104,6 @@ def account_view(request, *args, **kwargs):
         elif questions:
             if questions[0].auth != user and user.is_authenticated:
                 is_self = False
-        # elif not questions:
-        #     return HttpResponse("No question!!")
 
         context['is_self'] = is_self
         context['is_friend'] = is_friend
@@ -171,4 +169,5 @@ def edit_account_view(request, *args, **kwargs):
         )
         context['form'] = form
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
+    context['profile_image'] = account.profile_image
     return render(request, "account/edit_account.html", context)

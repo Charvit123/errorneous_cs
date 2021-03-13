@@ -1,7 +1,11 @@
-{% load static %}
-<style>
-  /* body {
-    background: url("../../static/background_image.jpg") center/cover no-repeat;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    {% load static %}
+    <style>
+   body{
+    background: url("../../static/images/background_image.jpg") center/cover no-repeat;
     height: 100vh;
     margin: 0;
     display: flex;
@@ -148,59 +152,52 @@
     flex-direction: column;
     align-items: center;
     padding: 12px 30px;
-  } */
+  }
 </style>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-  </head>
-  <body>
-    <div class="login">
-      <img />
-      <form method="POST">
+</head>
+<body>
+<div class="login">
+    <form method="POST">
         {% csrf_token %}
-        <label for="username">Email Address</label>
+        <label for="username">Username</label>
         <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Email Address..."
-          required
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email Address..."
+                required
         />
         <label for="password">Password</label>
         <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Password..."
-          required
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password..."
+                required
         />
         {% for field in login_form %}
         <p>
             {% for error in field.errors %}
-                <p>
-                    {{error}}
-                </p>
-            {% endfor %}
+        <p>
+            {{error}}
+        </p>
+        {% endfor %}
         </p>
         {% endfor %}
         {% if login_form.non_field_errors %}
-            <p>
-                {{login_form.non_field_errors}}
-            </p>
+        <p>
+            {{login_form.non_field_errors}}
+        </p>
         {% endif %}
         <button>Login</button>
         <label
         >Don't have Account?
-        <a href="{% url 'account:register' %}">Register</a>
+            <a href="{% url 'account:register' %}">Register</a>
         </label>
         <div class="reset">
             <a href="{% url 'reset_password' %}">Reset Password</a>
         </div>
-      </form>
-    </div>
-  </body>
+    </form>
+</div>
+</body>
 </html>
