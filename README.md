@@ -7,8 +7,8 @@
 > **Clone the Errorneous_CS (from the `main` branch) and `cd ` into the directory.**
 
 ```sh
-git clone -b 
-cd BizCoding
+git clone -b https://github.com/Charvit123/errorneous_cs.git
+cd Errorneous_CS
 ```
 
 ## Step to run Errorneous_CS in local machine
