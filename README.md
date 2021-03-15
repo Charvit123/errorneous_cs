@@ -1,6 +1,6 @@
 # Errorneous_CS👋
 
-<img src="https://github.com/Charvit123/errorneous_cs/blob/main/assests/giphy.webp" />
+<img src="https://github.com/Charvit123/errorneous_cs/blob/main/account/static/images/logo.png" />
 
 ## Get a copy of source code
 
