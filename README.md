@@ -1,6 +1,6 @@
 # Errorneous_CS👋
 
-<img src="https://github.com/Bhavik-Ardeshna/CodingAdda/blob/main/assests/programming.gif"/>
+<img src="https://github.com/Charvit123/errorneous_cs/blob/main/assests/giphy.webp"/>
 
 ## Get a copy of source code
 
