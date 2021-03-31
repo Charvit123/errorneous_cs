@@ -1,47 +1,195 @@
+{% extends 'account/main.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-  <body>
-    {% for notification in notifications %}
-    {% if notification.notification_type == '3' %}
-      <a href="{% url 'notification:delete_notification' noti_id=notification.id %}" class="delete btn-danger">x</a>
-      <img
-        src="{{notification.sender.profile_image}}"
-        style="width: 100px; height: 100px"
-      />
-      <strong>
-        {{notification.sender.username}} answered your Question
-        {{notification.question}}
-      </strong>
-      <strong>{{notification.date}}</strong>
-      <br>
+{% block content %}
+
+<style type="text/css">
+  .main{
+    border-radius: 25px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    /* display: inline-flex; */
+    background-color: rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    width: 35cm;
+    height: 13cm;
+    margin-top: 1.3cm;
+    margin-left: 2.8cm;
+    padding-bottom: 3.5em;
+    align-items: center;
+  }
+  .images{
+    border-radius: 15px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .table-scroll {
+    /*width:100%; */
+    display: block;
+    /* empty-cells: show; */
+    width: 33cm;
+    margin-left: 1cm;
+    /padding-top: 1cm;/
+    /* Decoration */
+    border-spacing: 0;
+    margin-top: -30px;
+    /* border: rgba(130, 130, 170, 0.1); */
+  }
+
+  .table-scroll tbody {
+    border-radius: 15px;
+    /* Position */
+    /align-items: center;/
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 8cm;
+    padding-bottom: 3cm;
+    overflow-y: scroll;
+    /* Decoration */
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .table-scroll tr {
+    width: 100%;
+    display: flex;
+  }
+
+  .table-scroll td,
+  .table-scroll th {
+    flex-basis: 100%;
+    flex-grow: 2;
+    display: block;
+    padding: 1rem;
+    text-align: left;
+    margin-left: 10px;
+    /align-items: center;/
+  }
+
+  /* Other options */
+
+  .table-scroll.small-first-col td:first-child,
+  .table-scroll.small-first-col th:first-child {
+    flex-basis: 20%;
+    flex-grow: 1;
+  }
+
+  .table-scroll tbody tr:nth-child(2n) {
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+
+  .body-half-screen {
+    max-height: 50vh;
+  }
+
+  .small-col {
+    flex-basis: 10%;
+  }
+
+  .table-scroll ::-webkit-scrollbar {
+    width: 6px;
+  }
+  .table-scroll ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  .table-scroll ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  /*#noti-text{
+    margin-bottom: 20px;
+  }*/
+  h1{
+    padding-top: 30px;
+    margin-left: 40px;
+  }
+</style>
+
+<div class="main">
+  <h1>Notifications</h1>
+    <table class="table-scroll small-first-col">
+      <tbody>
+        {% if notifications %}
+          {% for notification in notifications %}
+            {% if notification.notification_type == '3' %}
+              <tr>
+                <td>
+                <img
+                  src="{{notification.sender.profile_image.url}}"
+                  style="width: 100px; height: 100px"
+                />
+                </td>
+                <td>
+                  <strong id="noti-text">
+                    {{notification.sender.username}}
+                    Answered your Question
+                    <a href="{% url 'notification:delete_notification' noti_id=notification.id %}" class="delete btn-danger"><i class="delete btn-danger"></i></a>
+                    <br>
+                  </strong>
+                  <strong style="overflow: hidden" id="noti-text">
+                    Question: {{notification.question}} <br>
+                  </strong>
+                  <strong id="noti-text">
+                    {{notification.date}}
+                  </strong>
+                </td>
+                <br>
+              </tr>
+            {% endif %}
+            {% if notification.notification_type == '2' %}
+            <tr>
+              <td>
+              <img
+                src="{{notification.sender.profile_image.url}}"
+                style="width: 100px; height: 100px"
+              /></td>
+              <td>
+              <strong id="noti-text">
+                {{notification.sender.username}}
+                Liked your Question
+                <a href="{% url 'notification:delete_notification' noti_id=notification.id %}" class="delete btn-danger"><i class="delete btn-danger"></i></a>
+                <br>
+              </strong>
+              <strong style="overflow: hidden" id="noti-text">
+                Question: {{notification.question}}<br>
+              </strong>
+              <strong id="noti-text">{{notification.date}}</strong>
+              </td>
+              <br>
+            </tr>
+            {% endif %}
+            {% if notification.notification_type == '1' %}
+            <tr>
+              <td>
+              <img
+                src="{{notification.sender.profile_image.url}}"
+                style="width: 100px; height: 100px"
+              /></td>
+              <td>
+              <strong id="noti-text">
+                {{notification.sender.username}}
+                Liked your Answer
+                <a href="{% url 'notification:delete_notification' noti_id=notification.id %}" class="delete btn-danger"><span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span></a>
+                <br>
+              </strong>
+              <strong style="overflow: hidden" id="noti-text">
+                Answer: {{notification.answer}}<br>
+              </strong>
+              <strong id="noti-text">{{notification.date}}</strong>
+              </td>
+              <br>
+            </tr>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+        <h1>No Notifications!!</h1>
       {% endif %}
-      {% if notification.notification_type == '2' %}
-      <a href="{% url 'notification:delete_notification' noti_id=notification.id %}" class="delete btn-danger">x</a>
-      <img
-        src="{{notification.sender.profile_image}}"
-        style="width: 100px; height: 100px"
-      />
-      <strong>
-        {{notification.sender.username}} is Liked your Question
-        {{notification.question}}
-      </strong>
-      <strong>{{notification.date}}</strong>
-      <br>
-      {% endif %}
-      {% if notification.notification_type == '1' %}
-      <a href="{% url 'notification:delete_notification' noti_id=notification.id %}" class="delete btn-danger">x</a>
-      <img
-        src="{{notification.sender.profile_image}}"
-        style="width: 100px; height: 100px"
-      />
-      <strong>
-        {{notification.sender.username}} is Liked your Answer
-        {{notification.answer}}
-      </strong>
-      <strong>{{notification.date}}</strong>
-      <br>
-      {% endif %}
-    {% endfor %}
-  </body>
-</html>
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}

@@ -1,85 +1,44 @@
+{% extends 'account/main.html' %}
+{% block content %}
 {% load static %}
 <style>
-  body {
-    background: url("../../static/images/background_image.jpg") center/cover
-      no-repeat;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .menu-bar {
+  .container {
+    text-align: center;
     border-radius: 25px;
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
-    display: inline-flex;
+    /*display: inline-flex; */
     background-color: rgba(0, 0, 0, 0.4);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     align-items: center;
-    padding: 0 10px;
-    width: 100%;
-    margin: 20px 20px 0 20px;
+    padding: 0.5cm 0cm 1.8cm 0.9cm;
+    width: 12.5cm;
+    height: 11cm;
+    margin-left: 13.5cm;
+    margin-top: 2cm;
+    margin-bottom: 2cm;
+    justify-content: center;
   }
-
-  .menu-bar li {
-    list-style: none;
-    color: white;
-    font-family: sans-serif;
-    font-weight: bold;
-    padding: 12px 16px;
-    margin: 0 8px;
-    position: relative;
-    cursor: pointer;
-    white-space: nowrap;
+  .main{
+    margin-left: 30px;
+    margin-top: 20px;
   }
-
-  .menu-bar li::before {
-    content: " ";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    transition: 0.2s;
-    border-radius: 25px;
-  }
-
-  .menu-bar li:hover {
-    color: black;
-  }
-
-  .menu-bar li:hover::before {
-    background: linear-gradient(to bottom, #e8edec, #d2d1d3);
-    box-shadow: 0px 3px 20px 0px black;
-    transform: scale(1.2);
-  }
-
-  .menu-bar li:nth-child(7) {
-    margin-left: 10cm;
-  }
-
-  .menu-bar li:nth-child(2) {
-    margin-left: 50px;
-  }
-
-  .menu-bar a {
-    font-family: sans-serif;
+  .main a {
     display: block;
     color: white;
     text-decoration: none;
     position: relative;
     list-style: none;
     font-weight: bold;
-    padding: 12px 16px;
-    margin: 0 8px;
     cursor: pointer;
     white-space: nowrap;
+    margin: 3px;
+    /padding: 4px;/
+    justify-content: center;
   }
-  .menu-bar a::before {
+  .main a::before {
     content: " ";
     position: absolute;
     top: 0;
@@ -89,30 +48,66 @@
     z-index: -1;
     transition: 0.2s;
     border-radius: 25px;
-    /* color: black; */
-  }
-  .menu-bar a:hover {
     color: black;
   }
-  .menu-bar a:hover::before {
+  .main a:hover {
+    color: black;
+  }
+  .main a:hover::before {
     background: linear-gradient(to bottom, #e8edec, #d2d1d3);
     box-shadow: 0px 3px 20px 0px black;
     transform: scale(1.2);
   }
-  img {
-    width: 50px;
-    height: 35px;
-    padding-top: 4px;
+  #img1{
+    border-radius: 55%;
+    width: 200px;
+    height: 200px;
+    margin-left: 60px;
   }
-  space {
-    margin-left: 10cm;
-   }
+  .edit{
+    margin-left: 70px;
+    margin-top: 25px;
+  }
 </style>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Home</title>
-  </head>
-  <body></body>
-</html>
+<div class="container">
+  <div class="edit">
+    <div class="row">
+      <div class="column1">
+        <div class="card card-md">
+          <h1>Every Problem has a <br /> SOLUTION</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column2">
+        <div class="card card-md">
+          {% if user.is_authenticated %}
+            <img id="img1" src="{{user.profile_image.url}}"/>
+          {% else %}
+            <img id="img1" src="{% static 'images/default_image.png' %}">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column3">
+        <div class="card card-md">
+          <div class="main">
+            <h2>Welcome
+              {% if user.is_authenticated %}
+              <a href="{% url 'account:view' user_id=user.id %}">
+                {{ user.username }}
+              </a>
+              {% else %}
+              <br>
+                People
+              <br>
+              {% endif %}
+            to ERRORNEOUS_CS </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -14,7 +14,7 @@ def all_question_view(request, *args, **kwargs):
     questions = Question.objects.all()
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(questions, 3)
+    paginator = Paginator(questions, 6)
     try:
         question = paginator.page(page)
     except PageNotAnInteger:
@@ -23,6 +23,7 @@ def all_question_view(request, *args, **kwargs):
         question = paginator.page(paginator.num_pages)
     context['questions'] = questions
     context['question'] = question
+    context['question_search'] = True
     return render(request, 'question/home.html', context)
 
 

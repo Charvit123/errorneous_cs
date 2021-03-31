@@ -1,5 +1,5 @@
-{% extends 'account/main.html' %} 
-{% load static %} 
+{% extends 'account/main.html' %}
+{% load static %}
 {% block content %}
 
 <style type="text/css">
@@ -15,70 +15,151 @@
     align-items: center;
     /* padding: 2.4cm 5.5cm; */
     width: 35cm;
-    height: 13cm;
+    height: 13.5cm;
     margin-top: 1.3cm;
     margin-left: 2.8cm;
     padding-bottom: 3.5em;
   }
+   .table-scroll {
+    /*width:100%; */
+    display: block;
+    /* empty-cells: show; */
+    width: 33cm;
+    margin-left: 1cm;
+    padding-top: 1em;
+    /* Decoration */
+    border-spacing: 0;
+    /* border: rgba(130, 130, 170, 0.1); */
+  }
+
+  .table-scroll thead {
+    border-radius: 15px;
+    position: relative;
+    display: block;
+    width: 100%;
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+
+  .table-scroll tbody {
+    border-radius: 15px;
+    /* Position */
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 5.5cm;
+    padding-bottom: 2.5cm;
+    /* Decoration */
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .table-scroll tr {
+    width: 100%;
+    display: flex;
+  }
+
+  .table-scroll td,
+  .table-scroll th {
+    flex-basis: 100%;
+    flex-grow: 2;
+    display: block;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  /* Other options */
+
+  .table-scroll.small-first-col td:first-child,
+  .table-scroll.small-first-col th:first-child {
+    flex-basis: 20%;
+    flex-grow: 1;
+  }
+
+  .table-scroll tbody tr:nth-child(2n) {
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+
+  .body-half-screen {
+    max-height: 50vh;
+  }
+
+  .small-col {
+    flex-basis: 10%;
+  }
+  h1{
+    padding-top: 30px;
+    margin-left: 50px;
+  }
+  .pagination
+  {
+    display: inline-block;
+    margin-left:30px;
+    margin-top:30px;
+    background-color:blur;
+  }
+
+.pagination a{
+  color: white;
+  float: left;
+  padding: 10px 10px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  margin: 0 5px;
+  width:20px;
+  height:20px;
+}
+
+.pagination a:hover{
+    background-color: white;
+    color:black;
+}
+
 </style>
 
 <div class="home">
-  <form onsubmit="return executeQuery();">
-    <input
-      type="text"
-      class="form-control"
-      name="q"
-      id="id_q_large"
-      placeholder="Search..."
-    />
-  </form>
-  <table border="1">
-    <tr>
-      <th>No.</th>
-      <th>Question</th>
-      <th>Likes</th>
-    </tr>
+  <h1>Questions</h1>
+  <table class="table-scroll small-first-col">
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Likes</th>
+        <th>Question By</th>
+      </tr>
+    </thead>
+    <tbody class="body-half-screen">
     {% for q in question %}
     <tr>
-      <td>{{q.id}}</td>
       <td>
         <a href="{% url 'question:question' question_id=q.id %}"
           >{{q.question}}</a
         >
       </td>
       <td>{{q.like.all.count}}</td>
+      <td>{{q.auth}}</td>
     </tr>
     {% endfor %}
+  </tbody>
   </table>
   {% if question.has_other_pages %}
-  <ul class="pagination">
+  <div class="pagination">
     {% if question.has_previous %}
-      <li><a href="?page={{ question.previous_page_number }}">&laquo;</a></li>
+      <a href="?page={{ question.previous_page_number }}">&laquo;</a>
     {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
+    <a class="disabled"><span>&laquo;</span></a>
     {% endif %}
     {% for i in question.paginator.page_range %}
       {% if question.number == i %}
-        <li class="active"><span>{{ i }} </span></li>
+        <a class="active"><span>{{ i }} </span></a>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        <a href="?page={{ i }}">{{ i }}</a>
       {% endif %}
     {% endfor %}
     {% if question.has_next %}
-      <li><a href="?page={{ question.next_page_number }}">&raquo;</a></li>
+      <a href="?page={{ question.next_page_number }}">&raquo;</a>
     {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
+    <a class="disabled"><span>&raquo;</span></a>
     {% endif %}
-  </ul>
+  </div>
 {% endif %}
 </div>
-<script type="text/javascript">
-  function executeQuery() {
-    var query = "";
-    query = document.getElementById("id_q_large").value;
-    window.location.replace("{% url 'question:search' %}?q=" + query);
-    return false;
-  }
-</script>
 
 {% endblock %}

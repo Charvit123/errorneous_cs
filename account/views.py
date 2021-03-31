@@ -71,8 +71,12 @@ def logout_view(request):
 
 
 def home_view(request):
-    return render(request, 'account/main.html')
-
+    user = request.user
+    context = {}
+    if user.is_authenticated:
+        user = request.user
+        context['user'] = user
+    return render(request, 'account/home.html', context)
 
 def account_view(request, *args, **kwargs):
     context = {}
