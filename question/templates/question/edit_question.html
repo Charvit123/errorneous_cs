@@ -1,31 +1,53 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <form method="POST">
-      {% csrf_token %}
-      <label for="title">
-        <input
-          type="text"
-          name="title"
-          id="title"
-          placeholder="Title..."
-          value="{{form.initial.title}}"
-        />
-      </label>
-      <label for="question">
-        <input
-          type="text"
-          name="question"
-          id="question"
-          placeholder="Question..."
-          value="{{form.initial.question}}"
-          required
-        />
-      </label>
-      {% for field in form %} {% for error in field.error %}
-      <p>{{error}}</p>
-      {% endfor %} {% endfor %}
-      <button type="submit">Save</button>
-    </form>
-  </body>
-</html>
+{% extends 'account/main.html' %} 
+{% load static %} 
+{% block content %}
+
+<style type="text/css">
+  .edit{
+    border-radius: 25px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    /* display: inline-flex; */
+    background-color: rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    /* padding: 2.4cm 5.5cm; */
+    width: 35cm;
+    height: 13cm;
+    margin-top: 1.3cm;
+    margin-left: 2.8cm;
+    padding-bottom: 3.5em;
+  }
+</style>
+
+<div class="edit">
+  <form method="POST">
+    {% csrf_token %}
+    <label for="title">
+      <input
+        type="text"
+        name="title"
+        id="title"
+        placeholder="Title..."
+        value="{{form.initial.title}}"
+      />
+    </label>
+    <label for="question">
+      <input
+        type="text"
+        name="question"
+        id="question"
+        placeholder="Question..."
+        value="{{form.initial.question}}"
+        required
+      />
+    </label>
+    {% for field in form %} {% for error in field.error %}
+    <p>{{error}}</p>
+    {% endfor %} {% endfor %}
+    <button type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

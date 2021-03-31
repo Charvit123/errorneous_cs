@@ -1,6 +1,28 @@
-<!DOCTYPE html>
-<html>
-  <body>
+{% extends 'account/main.html' %} 
+{% load static %} 
+{% block content %}
+
+<style type="text/css">
+	.remove{
+    border-radius: 25px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    /* display: inline-flex; */
+    background-color: rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    /* padding: 2.4cm 5.5cm; */
+    width: 35cm;
+    height: 13cm;
+    margin-top: 1.3cm;
+    margin-left: 2.8cm;
+    padding-bottom: 3.5em;
+  }
+</style>
+
+<div class="remove">
     <form
       action="{% url 'question:remove_answer' question_id=question_id answer_id=answer.id %}"
       method="POST"
@@ -9,5 +31,5 @@
       <a href="{% url 'account:home' %}">Cancel</a>
       <button type="submit">Yes</button>
     </form>
-  </body>
-</html>
+</div>
+{% endblock %}

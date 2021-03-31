@@ -130,6 +130,21 @@
         autofocus
       />
     </form>
+    {% endif %}
+    {% if account_nav %}
+    <form
+      class="search-bar justify-content-start"
+      onsubmit="return executeQuery();"
+    >
+      <input
+        type="text"
+        class="form-control"
+        name="q"
+        id="id_q_large"
+        placeholder="Account Search..."
+        autofocus
+      />
+    </form>
     {% else %}
     <a href="{% url 'question:all_question' %}">Questions</a>
     <li>Type</li>
@@ -163,11 +178,14 @@
 <script type="text/javascript">
   function executeQuery() {
     var query = "";
-    // query = document.getElementById("id_q_small").value;
-    // if (query == "") {
     query = document.getElementById("id_q_large").value;
-    // }
     window.location.replace("{% url 'account:search' %}?q=" + query);
+    return false;
+  }
+  function executeQuery1() {
+    var query = "";
+    query = document.getElementById("id_q_large").value;
+    window.location.replace("{% url 'question:search' %}?q=" + query);
     return false;
   }
 </script>
