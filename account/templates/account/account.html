@@ -175,6 +175,14 @@
     box-shadow: 0px 3px 20px 0px black;
     transform: scale(1.2);
   }
+  .b1 {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 4px;
+    color: white; 
+  }
 </style>
 
 <br />
@@ -258,7 +266,7 @@
                   >{{question.title}}</a
                 >
               </th>
-              <th>{{question.like.all.count}}</th>
+              <th><button class="b1"><i class="fas fa-thumbs-up fa-1x"></i></button>{{question.like.all.count}}</th>
               {% if is_self %}
               <th>
                 <a

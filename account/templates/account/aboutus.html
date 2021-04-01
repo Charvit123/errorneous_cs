@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+img{
+  height:50%;
+  width:100%;
+}
+.column {
+  float: left;
+  width: 28.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 2px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+.row{
+  margin-left:450px;
+}
+p{
+font-size:20px;
+}
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="about-section">
+  <h1>About Us Page</h1>
+  <p>If one has question then he can post his question in written form or as photo and other
+user can answer that question.</p>
+  <p>ANYBODY CAN ASK AND ANYBODY CAN ANSWER</p>
+  <h2>Our Motto is</h2>
+  <h1>Share your knowledge.It’s a way to achieve immortality.</h1>
+</div>
+
+<h2 style="text-align:center">Our Team</h2>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'images/default_image.png' %}" alt="Charvit" >
+      <div class="container">
+        <h2>Charvit Ardeshna</h2>
+        <p class="title">Front End Developer</p>
+        <p>Charvit@example.com</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'images/default_image.png' %}" alt="Smit" >
+      <div class="container">
+        <h2>Smit Bhoraniya</h2>
+        <p class="title">Back End Developer</p>
+        <p>smit@example.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

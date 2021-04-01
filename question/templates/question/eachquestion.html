@@ -85,6 +85,7 @@
     display: block;
     padding: 1rem;
     text-align: center;
+    overflow: hidden;
     /*align-items: center;*/
   }
 
@@ -155,6 +156,14 @@
   font-weight:bold;
   text-decoration:none;
   }
+  .b1 {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 4px;
+    color: white; 
+  }
 </style>
 
 <div class="each">
@@ -191,9 +200,9 @@
             {% csrf_token %}
             <input type="hidden" name="question_like" value="{{question.id}}" />
             {% if user not in question.like.all %}
-            <button type="submit">Like</button>
+            <button class="b1"><i class="far fa-thumbs-up fa-2x"></i></button>
             {% else %}
-            <button type="submit">UnLike</button>
+            <button class="b1"><i class="fas fa-thumbs-up fa-2x"></i></button>
             {% endif %}
             <strong>{{question.like.all.count}} likes</strong>
           </form>
@@ -218,10 +227,6 @@
       <th>Answer</th>
       <th>Answer by</th>
       <th>Likes</th>
-      {% if answer_owner %}
-      <th>Update btn</th>
-      <th>Remove btn</th>
-      {% endif %}
     </tr>
     </thead>
     <tbody>
@@ -237,30 +242,13 @@
           {% csrf_token %}
           <input type="hidden" name="answer_like" value="{{ans.id}}" />
           {% if user not in ans.like.all %}
-          <button type="submit">Like</button>
+          <button class="b1"><i class="far fa-thumbs-up fa-2x"></i></button>
           {% else %}
-          <button type="submit">UnLike</button>
+          <button class="b1"><i class="fas fa-thumbs-up fa-2x"></i></button>
           {% endif %}
         </form>
         <strong>{{ans.like.all.count}} likes</strong>
-      </th>
-      {%if answer_owner %}
-      {% for a in answer_owner %} {% if a == ans %}
-      <td>
-        <a href="{% url 'question:edit_answer' question_id=question.id answer_id=ans.id %}"
-        >Update</a>
-      </td>
-      <td>
-        <a
-                href="{% url 'question:remove_answer' question_id=question.id answer_id=ans.id %}"
-        >Remove</a
-        >
-      </td>
-      {%else%}
-      <td>You can not update</td>
-      <td>yoy can not remove</td>
-      {% endif %} {% endfor %}
-      {%endif%}
+      </th>  
     </tr>
     {% endfor %}
     </tbody>

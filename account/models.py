@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
 # from sorl.thumbnail import ImageField, get_thumbnail
 # Create your models here.
 
@@ -78,3 +79,10 @@ class Account(AbstractBaseUser):
     #     if self.image:
     #         self.image = get_thumbnail(self.image, '500x600', quality=99, format='JPEG')
     #     super(MyPhoto, self).save(*args, **kwargs)
+
+class contect(models.Model):
+    email = models.EmailField(verbose_name="email", max_length=60, unique=True)
+    title = models.CharField(max_length=30)
+    msg = models.CharField(max_length=300)
+    date_created = models.DateTimeField(
+        verbose_name='date joined', auto_now_add=True)

@@ -3,8 +3,11 @@ from notification.models import Notification
 # Create your views here.
 
 
-def ShowNOtification(request):
+def ShowNOtification(request, *args, **kwargs):
     user = request.user
+    context = {}
+    if not user.is_authenticated:
+        return redirect("account:login")
     notifications = Notification.objects.filter(
         receiver=user).order_by('-date')
     Notification.objects.filter(receiver=user, is_seen=False).update(is_seen=True)

@@ -15,7 +15,7 @@
     align-items: center;
     /* padding: 2.4cm 5.5cm; */
     width: 35cm;
-    height: 13.5cm;
+    height: 14cm;
     margin-top: 1.3cm;
     margin-left: 2.8cm;
     padding-bottom: 3.5em;
@@ -93,7 +93,7 @@
   {
     display: inline-block;
     margin-left:30px;
-    margin-top:30px;
+    margin-top:55px;
     background-color:blur;
   }
 
@@ -112,7 +112,14 @@
     background-color: white;
     color:black;
 }
-
+.b1 {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 4px;
+    color: white; 
+  }
 </style>
 
 <div class="home">
@@ -129,11 +136,11 @@
     {% for q in question %}
     <tr>
       <td>
-        <a href="{% url 'question:question' question_id=q.id %}"
+        <a style="text-decoration: None;color: white; color:pink;" href="{% url 'question:question' question_id=q.id %}"
           >{{q.question}}</a
         >
       </td>
-      <td>{{q.like.all.count}}</td>
+      <td><button class="b1"><i class="fas fa-thumbs-up fa-1x"></i></button> {{q.like.all.count}}</td>
       <td>{{q.auth}}</td>
     </tr>
     {% endfor %}

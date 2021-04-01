@@ -153,7 +153,14 @@
     font-weight: bold;
     text-align: center;
   }
-</style>
+  .b1 {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 4px;
+    color: white; 
+  }
 </style>
 
 <div class="search">
@@ -172,7 +179,7 @@
         <tr>
           <td>{{question.title}}</td>
           <td>
-            <strong>{{question.like.all.count}}</strong>
+            <strong><button class="b1"><i class="fas fa-thumbs-up fa-1x"></i></button>{{question.like.all.count}}</strong>
           </td>
           <td>{{question.auth}}</td>
         </tr>

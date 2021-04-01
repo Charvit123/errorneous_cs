@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
-from account.forms import AccountUpdateForm, RegistrationForm, AccountAuthenticationForm
+from account.forms import AccountUpdateForm, RegistrationForm, AccountAuthenticationForm, ContectUsForm
 from account.models import *
 from django.conf import settings
 from question.models import Question
@@ -76,7 +76,7 @@ def home_view(request):
     if user.is_authenticated:
         user = request.user
         context['user'] = user
-        context['home'] = True
+    context['home'] = True
     return render(request, 'account/home.html', context)
 
 
@@ -180,3 +180,18 @@ def edit_account_view(request, *args, **kwargs):
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     context['profile_image'] = account.profile_image
     return render(request, "account/edit_account.html", context)
+
+def contect_view(request):
+    form = ContectUsForm()
+    context = {}
+    if request.POST:
+        form = ContectUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('account:home')
+        else:
+            context['form'] = form
+    return render(request, 'account/contect_us.html')
+
+def about_us_view(request):
+    return render(request, 'account/aboutus.html')

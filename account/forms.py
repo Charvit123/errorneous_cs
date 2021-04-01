@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
-from account.models import Account
+from account.models import Account, contect
+from django.forms import ModelForm
 
 
 class RegistrationForm(UserCreationForm):
@@ -78,3 +79,8 @@ class AccountUpdateForm(forms.ModelForm):
             account.save()
         return account
 
+class ContectUsForm(ModelForm):
+    class Meta:
+        model = contect
+        field = ('email', 'title', 'msg')
+        exclude = ['contect']

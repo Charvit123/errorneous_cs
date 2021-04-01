@@ -10,4 +10,6 @@ urlpatterns = [
     path('account/<user_id>/', account_view, name="view"),
     path('account/<user_id>/edit/', edit_account_view, name="edit"),
     path('search/', account_search_view, name="search"),
+    path('contect/', contect_view, name="contect"),
+    path('aboutus/', about_us_view, name="about_us"),
 ]

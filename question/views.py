@@ -296,4 +296,5 @@ def your_answer_view(request, *args, **kwargs):
         if answer:
             context['answer'] = answer
         print(answer)
+    context['each'] = True
     return render(request, 'question/your_answer.html', context)

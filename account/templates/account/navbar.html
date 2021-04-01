@@ -169,8 +169,8 @@
         {% endif %}
       </a>
 
-      <li>Contect Us</li>
-      <li>About Us</li>
+      <a href="{% url 'account:contect' %}">Contect Us</a>
+      <a href="{% url 'account:about_us' %}">About Us</a>
       {% if request.user.is_authenticated %}
       <div>
         <a
