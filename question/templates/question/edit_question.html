@@ -1,10 +1,8 @@
-{% extends 'account/main.html' %} 
-{% load static %} 
-{% block content %}
+{% extends 'account/main.html' %} {% load static %} {% block content %}
 
 <style type="text/css">
-  .edit{
-  align-items: center;
+  .edit {
+    align-items: center;
     border-radius: 25px;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -17,11 +15,12 @@
     /* padding: 2.4cm 5.5cm; */
     width: 14cm;
     height: 10cm;
-    margin-top: 3.7cm;
-    margin-left: 15.8cm;
+    margin-top: 3.5cm;
+    margin-left: 13.2cm;
     padding-bottom: 3.5em;
   }
-  .edit input,textarea{
+  .edit input,
+  textarea {
     border-radius: 25px;
     width: 250px;
     height: 40px;
@@ -37,13 +36,13 @@
     margin-left: 20px;
     padding-left: 13px;
   }
-  .edit textarea{
-    height:150px;
-    width:60%;
-    margin-left:20px;
-    padding-top:10px;
+  .edit textarea {
+    height: 150px;
+    width: 60%;
+    margin-left: 20px;
+    padding-top: 10px;
   }
-    .edit label {
+  .edit label {
     font-family: sans-serif;
     color: white;
     font-weight: bold;
@@ -108,7 +107,8 @@
 <div class="edit">
   <form method="POST">
     {% csrf_token %}
-    <label for="title">Title
+    <label for="title"
+      >Title
       <input
         type="text"
         name="title"
@@ -117,7 +117,8 @@
         value="{{form.initial.title}}"
       />
     </label>
-    <label for="question">Question
+    <label for="question"
+      >Question
       <textarea
         type="text"
         name="question"

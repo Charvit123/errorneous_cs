@@ -8,6 +8,7 @@ urlpatterns = [
     path('remove_question/<question_id>',
          remove_question, name="remove_question"),
     path('search/', question_search_view, name="search"),
+    path('your_answer/', your_answer_view, name="your_answer"),
     path('<question_id>/', question_view, name="question"),
     path('<question_id>/add_answer/', add_answer, name="add_answer"),
     path('<question_id>/edit/', edit_question_view, name="edit_question"),

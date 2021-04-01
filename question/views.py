@@ -23,6 +23,7 @@ def all_question_view(request, *args, **kwargs):
         question = paginator.page(paginator.num_pages)
     context['questions'] = questions
     context['question'] = question
+    context['search'] = True
     context['question_search'] = True
     return render(request, 'question/home.html', context)
 
@@ -58,7 +59,7 @@ def question_view(request, *args, **kwargs):
         context['is_self'] = is_self
         context['is_friend'] = is_friend
         context['BASE_URL'] = settings.BASE_URL
-
+        context['each'] = True
     return render(request, 'question/eachquestion.html', context)
 
 
@@ -126,6 +127,7 @@ def add_question(request, *args, **kwargs):
                 return redirect('account:view', user_id=user.id)
             else:
                 context['form'] = form
+    context['CRUD'] = True
     return render(request, 'question/add_question.html', context)
 
 
@@ -143,7 +145,7 @@ def remove_question(request, *args, **kwargs):
         if request.POST:
             question.delete()
             return redirect('account:view', user_id=user.id)
-
+    context['CRUD'] = True
     return render(request, 'question/remove_question.html', context)
 
 
@@ -165,6 +167,7 @@ def add_answer(request, *args, **kwargs):
                 return redirect('question:question', question_id=question.id)
             else:
                 context['form'] = form
+    context['CRUD'] = True
     return render(request, 'question/add_answer.html', context)
 
 
@@ -184,6 +187,7 @@ def remove_answer(request, *args, **kwargs):
             answer.delete()
             return redirect('question:question', question_id=question_id)
     context['question_id'] = question_id
+    context['CRUD'] = True
     return render(request, 'question/remove_answer.html', context)
 
 
@@ -200,6 +204,8 @@ def question_search_view(request, *args, **kwargs):
                 questions.append(question)
             print(questions)
             context['questions'] = questions
+    context['question_search'] = True
+    context['search'] = True
     return render(request, "question/search_results.html", context)
 
 
@@ -236,6 +242,7 @@ def edit_question_view(request, *args, **kwargs):
                                   }
                                   )
         context['form'] = form
+    context['CRUD'] = True
     return render(request, "question/edit_question.html", context)
 
 
@@ -273,4 +280,20 @@ def edit_answer_view(request, *args, **kwargs):
                                 }
                                 )
         context['form'] = form
+    context['CRUD'] = True
     return render(request, "question/edit_answer.html", context)
+
+def your_answer_view(request, *args, **kwargs):
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        try:
+            account = Account.objects.get(id=user.id)
+            answer = Answer.objects.filter(auth=account)
+        except Exception as e:
+            return HttpResponse("Answer not exists!!")
+
+        if answer:
+            context['answer'] = answer
+        print(answer)
+    return render(request, 'question/your_answer.html', context)

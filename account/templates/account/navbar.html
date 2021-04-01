@@ -66,11 +66,45 @@
     transform: scale(1.2);
   }
 
-  .menu-bar li:nth-child(7) {
-    margin-left: 10cm;
+  .menu-bar li:nth-child(2) {
+    margin-left: 50px;
   }
 
-  .menu-bar li:nth-child(2) {
+  .menu-bar .goback {
+    list-style: none;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 12px 16px;
+    margin: 0 8px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .menu-bar .goback::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    transition: 0.2s;
+    border-radius: 25px;
+  }
+
+  .menu-bar .goback:hover {
+    color: black;
+  }
+
+  .menu-bar .goback:hover::before {
+    background: linear-gradient(to bottom, #e8edec, #d2d1d3);
+    box-shadow: 0px 3px 20px 0px black;
+    transform: scale(1.2);
+  }
+
+  .menu-bar .goback:nth-child(2) {
     margin-left: 50px;
   }
 
@@ -111,8 +145,11 @@
     width: 50px;
     height: 35px;
   }
-  .navbar{
-    width:1565px;
+  .navbar {
+    width: 1480px;
+  }
+  .c1{
+    margin-top: 0px;
   }
 </style>
 
@@ -121,58 +158,135 @@
     <a href="{% url 'account:home' %}"
       ><img src="{% static 'images/logo.png' %}"
     /></a>
-    {% if question_search %}
-    <form onsubmit="return executeQuery1();">
-      <input
-        type="text"
-        class="form-control"
-        name="q"
-        id="id_q_large"
-        placeholder="Question Search..."
-      />
-    </form>
-    {% endif %}
-    {% if account_nav %}
-    <form
-      class="search-bar justify-content-start"
-      onsubmit="return executeQuery();"
-    >
-      <input
-        type="text"
-        class="form-control"
-        name="q"
-        id="id_q_large"
-        placeholder="Account Search..."
-        autofocus
-      />
-    </form>
-    {% else %}
-    <a href="{% url 'question:all_question' %}">Questions</a>
-    <a href="{% url 'notification:show_notification' %}">
-      <span>Notification</span>
-      {% if count_notifications %}
-      <span>{{count_notifications}}</span>
-      {% endif %}
-    </a>
 
-    <li>Contect Us</li>
-    <li>About Us</li>
-    {% if request.user.is_authenticated %}
-    <div class="space">
-      <a
-        style="margin-left: 15cm"
-        href="{% url 'account:view' user_id=request.user.id %}"
-        >Account</a
+    <!-- home -->
+    {% if home %} 
+      <a href="{% url 'question:all_question' %}">Questions</a>
+      <a href="{% url 'notification:show_notification' %}">
+        <span>Notification</span>
+        {% if count_notifications %}
+        <span>{{count_notifications}}</span>
+        {% endif %}
+      </a>
+
+      <li>Contect Us</li>
+      <li>About Us</li>
+      {% if request.user.is_authenticated %}
+      <div>
+        <a
+          style="margin-left: 17.5cm"
+          href="{% url 'account:view' user_id=request.user.id %}"
+          >Account</a
+        >
+      </div>
+      <a href="{% url 'account:logout' %}">Logout</a>
+      {% else %}
+      <a style="margin-left: 17.5cm" href="{% url 'account:register' %}"
+        >Register</a
       >
-    </div>
-    <a href="{% url 'account:logout' %}">Logout</a>
-    {% else %}
-    <a style="margin-left: 15cm" href="{% url 'account:register' %}"
-      >Register</a
-    >
-    <a href="{% url 'account:login' %}">Login</a>
+      <a href="{% url 'account:login' %}">Login</a>
+      {% endif %}
+    {% endif %} 
+
+    <!-- each -->
+    {% if each %}
+      <a href="{% url 'question:all_question' %}">Questions</a>
+      <a href="{% url 'notification:show_notification' %}">
+        <span>Notification</span>
+        {% if count_notifications %}
+        <span>{{count_notifications}}</span>
+        {% endif %}
+      </a>
+    {% endif %} 
+
+
+    <!-- account navbar -->
+    {% if account_nav %}
+      {% if account_search %}
+        <form
+          class="search-bar justify-content-start"
+          onsubmit="return executeQuery();"
+          style="margin-right: 10px;"
+        >
+          <input
+            type="text"
+            class="form-control"
+            name="q"
+            id="id_q_large"
+            placeholder="Account Search..."
+            autofocus
+          />
+        </form>
+      {% endif %}
+      <a href="{% url 'question:all_question' %}">Questions</a>
+      <a href="{% url 'notification:show_notification' %}">
+      <span>Notification</span>
+        {% if count_notifications %}
+      <span>{{count_notifications}}</span>
+        {% endif %}
+      </a>
+
+      {% if request.user.is_authenticated %}
+      <div>
+        <a
+          style="margin-left: 16.5cm"
+          href="{% url 'account:view' user_id=request.user.id %}"
+          >Account</a
+        >
+      </div>
+      <a href="{% url 'account:logout' %}">Logout</a>
+      {% else %}
+      <a style="margin-left: 16.5cm" href="{% url 'account:register' %}"
+        >Register</a
+      >
+      <a href="{% url 'account:login' %}">Login</a>
+      {% endif %}
     {% endif %}
-    {% endif %}
+
+
+    <!-- search -->
+    {% if search %} 
+      {% if question_search %}
+        <form onsubmit="return executeQuery1();" style="margin-right: 10px;">
+          <input
+            type="text"
+            class="form-control"
+            name="q"
+            id="id_q_large"
+            placeholder="Question Search..."
+          />
+        </form>
+      {% endif %} 
+      {% if account_search %}
+        <form
+          class="search-bar justify-content-start"
+          onsubmit="return executeQuery();"
+          style="margin-right: 10px;"
+        >
+          <input
+            type="text"
+            class="form-control"
+            name="q"
+            id="id_q_large"
+            placeholder="Account Search..."
+            autofocus
+          />
+        </form>
+      {% endif %}
+        <a href="{% url 'question:all_question' %}">Questions</a>
+        <a href="{% url 'notification:show_notification' %}">
+          <span>Notification</span>
+          {% if count_notifications %}
+          <span>{{count_notifications}}</span>
+          {% endif %}
+        </a>
+    {% endif %} 
+
+
+    <!-- CRUD -->
+    {% if CRUD %} 
+      <button class="c1" style="width: 120px; margin-left: 10px;" type="goback" value="Go back" onClick="javascript:history.go(-1);" />Go Back</button>
+    {% endif %} 
   </ul>
 </nav>
 

@@ -1,10 +1,8 @@
-{% extends 'account/main.html' %} 
-{% load static %} 
-{% block content %}
+{% extends 'account/main.html' %} {% load static %} {% block content %}
 
 <style type="text/css">
-	.remove{
-	text-align:center;
+  .remove {
+    text-align: center;
     align-items: center;
     border-radius: 25px;
     height: -webkit-fit-content;
@@ -18,8 +16,8 @@
     /* padding: 2.4cm 5.5cm; */
     width: 11cm;
     height: 7cm;
-    margin-top: 5.7cm;
-    margin-left: 15.8cm;
+    margin-top: 3.5cm;
+    margin-left: 14.4cm;
     padding-bottom: 3.5em;
   }
   .remove label {
@@ -53,7 +51,7 @@
     background: none;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
     margin-left: 20px;
-    margin-top:30px;
+    margin-top: 30px;
   }
   button:before,
   button:after {
@@ -82,26 +80,26 @@
     width: 105%;
     height: 115%;
   }
-  input{
-    align-items:center;
-    margin-left:130px;
-    margin-top:30px;
-    width:40%;
+  input {
+    align-items: center;
+    margin-left: 130px;
+    margin-top: 30px;
+    width: 40%;
   }
-  h2{
-    padding-top:20px;
+  h2 {
+    padding-top: 20px;
   }
 </style>
 
 <div class="remove">
-    <form
-      action="{% url 'question:remove_answer' question_id=question_id answer_id=answer.id %}"
-      method="POST"
-    >
-      {% csrf_token %}
-        <h2>Do You want to delete your answer!!!</h2>
-        <button type="submit">Yes</button>
-       <input type=button value="Go back" onClick="javascript:history.go(-1);">
-    </form>
+  <form
+    action="{% url 'question:remove_answer' question_id=question_id answer_id=answer.id %}"
+    method="POST"
+  >
+    {% csrf_token %}
+    <h2>Do You want to delete your answer!!!</h2>
+    <button type="submit">Yes</button>
+    <button type="button" value="Go back" onClick="javascript:history.go(-1);" >No</button>
+  </form>
 </div>
 {% endblock %}

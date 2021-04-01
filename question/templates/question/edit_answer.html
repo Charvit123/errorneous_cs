@@ -1,10 +1,8 @@
-{% extends 'account/main.html' %} 
-{% load static %} 
-{% block content %}
+{% extends 'account/main.html' %} {% load static %} {% block content %}
 
 <style type="text/css">
-  .edit{
-  align-items: center;
+  .edit {
+    align-items: center;
     border-radius: 25px;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -17,14 +15,14 @@
     /* padding: 2.4cm 5.5cm; */
     width: 14cm;
     height: 10cm;
-    margin-top: 3.7cm;
-    margin-left: 15.8cm;
+    margin-top: 3.5cm;
+    margin-left: 13.2cm;
     padding-bottom: 3.5em;
   }
-  .edit textarea{
+  .edit textarea {
     border-radius: 25px;
-    height:180px;
-    width:70%;
+    height: 180px;
+    width: 70%;
     font-family: sans-serif;
     font-size: medium;
     color: black;
@@ -35,9 +33,9 @@
     display: flex;
     flex-direction: column;
     padding-left: 13px;
-    margin-left:10px;
-    padding-top:20px;
-    margin-top:10px;
+    margin-left: 10px;
+    padding-top: 20px;
+    margin-top: 10px;
   }
   .edit label {
     font-family: sans-serif;
@@ -101,21 +99,23 @@
 </style>
 
 <div class="edit">
-<form method="POST">
-  {% csrf_token %}
-  <label for="answer">Edit your answer here
-    <textarea
-      type="text"
-      name="answer"
-      id="answer"
-      placeholder="Answer..."
-      value="{{form.initial.answer}}"
-    ></textarea>
-  </label>
-  {% for field in form %} {% for error in field.error %}
-  <p>{{error}}</p>
-  {% endfor %} {% endfor %}
-  <button type="submit">Save</button>
-</form>
+  <form method="POST">
+    {% csrf_token %}
+    <label for="answer"
+      >Edit your answer here
+      <textarea
+        type="text"
+        name="answer"
+        id="answer"
+        placeholder="Answer..."
+        value="{{form.initial.answer}}"
+      ></textarea>
+    </label>
+    {% for field in form %} {% for error in field.error %}
+    <p>{{error}}</p>
+    {% endfor %} {% endfor %}
+    <button type="submit">Save</button>
+  </form>
 
-{% endblock %}
+  {% endblock %}
+</div>

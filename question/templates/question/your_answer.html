@@ -1,0 +1,43 @@
+{% extends 'account/main.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+	<h1>Your Answer</h1>
+	<table>
+		<thed>
+			<tr>
+				<th>Answer</th>
+				<th>In This Question</th>
+				<th>Likes</th>
+				<th>Answerd By</th>
+			</tr>
+		</thed>
+		{% for ans in answer %}
+			<tr>
+				<td>{{ans.ans}}</td>
+				<td>{{ans.question}}</td>
+				<td>
+		          <form
+                action="{% url 'question:like' question_id=ans.question.id %}"
+                method="POST"
+		        >
+		          {% csrf_token %}
+		          <input type="hidden" name="answer_like" value="{{ans.id}}" />
+		          {% if user not in ans.like.all %}
+		          <button type="submit">Like</button>
+		          {% else %}
+		          <button type="submit">UnLike</button>
+		          {% endif %}
+		        </form>
+		        <strong>{{ans.like.all.count}} likes</strong>
+		        </td>
+		        <td>{{ans.auth}}</td>
+			</tr>
+		{% endfor %}
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+{% endblock %}

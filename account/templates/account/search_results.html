@@ -19,11 +19,11 @@
     align-items: center;
   }
 
-  .space{
+  .space {
     margin-top: 1cm;
   }
 
-  .images{
+  .images {
     border-radius: 15px;
     width: 80px;
     height: 80px;
@@ -143,7 +143,7 @@
     box-shadow: 0px 3px 20px 0px black;
     transform: scale(1.2);
   }
-  .noresult{
+  .noresult {
     font-family: sans-serif;
     font-weight: bold;
     text-align: center;
@@ -153,22 +153,19 @@
   <div class="space">
     <table class="table-scroll small-first-col">
       <tbody>
-        {% if accounts %}
-          {% for account in accounts %}
-            <tr>
-              <td><img class="images" src="{{account.0.profile_image.url}}" /></td>
-              <td><a href="{% url 'account:view' user_id=account.0.id %}">
-                {{account.0.username}}
-              </a>
-              <br>
-                {% if account.0 == user %}
-                  This is you
-                {% endif %}
-              </td>
-              <td>{{account.0.email}}</td>
-            </tr>
-          {% endfor %}
-        {% else %}
+        {% if accounts %} {% for account in accounts %}
+        <tr>
+          <td><img class="images" src="{{account.0.profile_image.url}}" /></td>
+          <td>
+            <a href="{% url 'account:view' user_id=account.0.id %}">
+              {{account.0.username}}
+            </a>
+            <br />
+            {% if account.0 == user %} This is you {% endif %}
+          </td>
+          <td>{{account.0.email}}</td>
+        </tr>
+        {% endfor %} {% else %}
         <tr>
           <td>
             <div class="noresult">

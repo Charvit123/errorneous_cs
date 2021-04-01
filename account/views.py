@@ -76,14 +76,15 @@ def home_view(request):
     if user.is_authenticated:
         user = request.user
         context['user'] = user
+        context['home'] = True
     return render(request, 'account/home.html', context)
+
 
 def account_view(request, *args, **kwargs):
     context = {}
     user = request.user
     user_id = kwargs.get("user_id")
     account_nav = True
-    context['account_nav'] = account_nav
     if user.is_authenticated:
         try:
             account = Account.objects.get(pk=user_id)
@@ -97,7 +98,7 @@ def account_view(request, *args, **kwargs):
         context['profile_image'] = account.profile_image
         context['hide_email'] = account.hide_email
         context['questions'] = questions
-        
+
         is_self = True
         is_friend = False
         user = request.user
@@ -112,14 +113,15 @@ def account_view(request, *args, **kwargs):
         context['is_self'] = is_self
         context['is_friend'] = is_friend
         context['BASE_URL'] = settings.BASE_URL
-
+        context['account_search'] = True
+        context['account_nav'] = True
     return render(request, 'account/account.html', context)
 
 
 def account_search_view(request, *args, **kwargs):
     context = {}
     account_nav = True
-    context['account_nav'] = account_nav
+    context['account_search'] = account_nav
     if request.method == "GET":
         search_query = request.GET.get("q")
         if len(search_query) > 0:
@@ -132,6 +134,8 @@ def account_search_view(request, *args, **kwargs):
             context['accounts'] = accounts
             context['user'] = request.user
             context['search_query'] = search_query
+    context['account_search'] = True
+    context['search'] = True
     return render(request, "account/search_results.html", context)
 
 
@@ -172,6 +176,7 @@ def edit_account_view(request, *args, **kwargs):
             }
         )
         context['form'] = form
+    context['CRUD'] = True
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     context['profile_image'] = account.profile_image
     return render(request, "account/edit_account.html", context)
