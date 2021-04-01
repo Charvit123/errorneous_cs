@@ -4,6 +4,7 @@
 
 <style type="text/css">
   .add_ans{
+  align-items: center;
     border-radius: 25px;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -14,10 +15,10 @@
     backdrop-filter: blur(10px);
     align-items: center;
     /* padding: 2.4cm 5.5cm; */
-    width: 35cm;
-    height: 13cm;
-    margin-top: 1.3cm;
-    margin-left: 2.8cm;
+    width: 14cm;
+    height: 10cm;
+    margin-top: 3.7cm;
+    margin-left: 15.8cm;
     padding-bottom: 3.5em;
   }
   .add_ans label {
@@ -31,12 +32,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 12px 30px;
+    padding: 20px 40px;
   }
-  .add_ans input {
+  .add_ans textarea{
     border-radius: 25px;
-    width: 250px;
-    height: 40px;
+    height:180px;
+    width:70%;
     font-family: sans-serif;
     font-size: medium;
     color: black;
@@ -46,8 +47,56 @@
     white-space: nowrap;
     display: flex;
     flex-direction: column;
-    margin-left: 75px;
     padding-left: 13px;
+    margin-left:76px;
+    padding-top:10px;
+  }
+  button {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: medium;
+    border: none;
+    padding: 1em;
+    outline: none;
+    color: black;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: 1.2em;
+    letter-spacing: 0em;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    background: none;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+    margin-left: 190px;
+    margin-top: 20px;
+  }
+  button:before,
+  button:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 10em;
+    transform: translateX(-50%) translateY(-50%);
+    width: 90%;
+    height: 95%;
+    content: "";
+    z-index: -2;
+    background-size: 100% 100%;
+    background: white;
+  }
+  button:before {
+    filter: blur(10px);
+    transition: all 0.25s ease;
+    -webkit-animation: pulse 10s infinite ease;
+    animation: pulse 10s infinite ease;
+  }
+  button:after {
+    filter: blur(0.3px);
+  }
+  button:hover:before {
+    width: 100%;
+    height: 105%;
   }
 </style>
 
@@ -55,7 +104,7 @@
   <form method="POST">
     {% csrf_token %}
     <label for="answer">Answer</label>
-    <input type="text" id="answer" name="answer" placeholder="Answer..." />
+    <textarea type="text" id="answer" name="answer" placeholder="Answer..." ></textarea>
     {% for field in form %} 
       {% for error in field.errors %}
         <p>{{error}}</p>

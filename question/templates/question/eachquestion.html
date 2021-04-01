@@ -1,84 +1,238 @@
-{% extends 'account/main.html' %} 
-{% load static %} 
+{% extends 'account/main.html' %}
+{% load static %}
 {% block content %}
-
-<style type="text/css">
+<style>
   .each{
     border-radius: 25px;
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
-    /* display: inline-flex; */
     background-color: rgba(0, 0, 0, 0.4);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     align-items: center;
-    /* padding: 2.4cm 5.5cm; */
     width: 35cm;
-    height: 13cm;
-    margin-top: 1.3cm;
+    height: 18cm;
+    margin-top: 0.8cm;
     margin-left: 2.8cm;
     padding-bottom: 3.5em;
+    margin-bottom:10px;
+  }
+  .button {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: medium;
+    border: none;
+    padding: 1em;
+    outline: none;
+    color: black;
+    text-transform: uppercase;
+    font-style: 1.2em;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    background: none;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+    margin:10px 585px;
+  }
+  .button:before,
+  .button:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 10em;
+    transform: translateX(-50%) translateY(-50%);
+    width: 88%;
+    height: 98%;
+    content: "";
+    z-index: -2;
+    background-size: 400% 400%;
+    background: white;
+  }
+  .button:before {
+    filter: blur(10px);
+    transition: all 0.25s ease;
+    -webkit-animation: pulse 10s infinite ease;
+    animation: pulse 10s infinite ease;
+  }
+  .button:after {
+    filter: blur(0.3px);
+  }
+  button:hover:before {
+    width: 90%;
+    height: 100%;
+  }
+  .table-scroll tbody {
+    border-radius: 15px;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 5cm;
+    padding-bottom: 2.5cm;
+    overflow-y: scroll;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .table-scroll tr {
+    width: 100%;
+    display: flex;
+  }
+
+  .table-scroll td,
+  .table-scroll th {
+    flex-basis: 100%;
+    flex-grow: 2;
+    display: block;
+    padding: 1rem;
+    text-align: center;
+    /*align-items: center;*/
+  }
+
+  /* Other options */
+
+  .table-scroll.small-first-col td:first-child,
+  .table-scroll.small-first-col th:first-child {
+    flex-basis: 20%;
+    flex-grow: 1;
+  }
+
+  .table-scroll tbody tr:nth-child(2n) {
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+
+  .body-half-screen {
+    max-height: 50vh;
+  }
+
+  .small-col {
+    flex-basis: 10%;
+  }
+
+  .table-scroll ::-webkit-scrollbar {
+    width: 6px;
+  }
+  .table-scroll ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  .table-scroll ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  .table-scroll {
+    display: block;
+    width: 33cm;
+    margin-left: 1cm;
+    padding-top: 1cm;
+    border-spacing: 0;
+    height:50px;
+  }
+
+  .table-scroll thead {
+    border-radius: 15px;
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow-y: hidden;
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+  .table2 {
+    font-size: 20;
+    display: block;
+    margin-left:100px;
+    border-radius: 15px;
+  }
+  .table2 tr {
+    background-color: rgba(130, 130, 170, 0.1);
+  }
+  .table th,
+  td {
+    border-radius: 15px;
+    padding: 10px;
+  }
+  a{
+  color:pink;
+  font-weight:bold;
+  text-decoration:none;
   }
 </style>
 
 <div class="each">
-  <table border="2">
+  <table>
     <tr>
       <th>
-        <a href="{% url 'question:add_answer' question_id=question.id %}"
-          >Add Answer</a
-        >
+        <button class="button"><a href="{% url 'question:add_answer' question_id=question.id %}" style="text-decoration:none;color:black;"
+        >Add Answer</a
+        ></button>
       </th>
     </tr>
   </table>
   <br />
-  <table border="2">
-    <tr>
-      <td>{{question.id}}</td>
-      <td>{{question.title}}</td>
-      <td>{{question.question}}</td>
-      <td>{{question.auth}}</td>
-      <td>
-        <form
-          action="{% url 'question:question_like' question_id=question.id %}"
-          method="POST"
-        >
-          {% csrf_token %}
-          <input type="hidden" name="question_like" value="{{question.id}}" />
-          {% if user not in question.like.all %}
-          <button type="submit">Like</button>
-          {% else %}
-          <button type="submit">UnLike</button>
-          {% endif %}
-        </form>
-        <strong>{{question.like.all.count}} likes</strong>
-      </td>
+  <div class="table2">
+    <table>
+      <tr>
+        <td>Title: </td>
+        <td>{{question.title}}</td>
+      </tr>
+      <tr>
+        <td>Question: </td>
+        <td>{{question.question}}</td>
+      <tr>
+        <td>Question By: </td>
+        <td>{{question.auth}}</td>
+      </tr>
+      <tr>
+        <td>Likes: </td>
+        <td>
+          <form
+                  action="{% url 'question:question_like' question_id=question.id %}"
+                  method="POST"
+          >
+            {% csrf_token %}
+            <input type="hidden" name="question_like" value="{{question.id}}" />
+            {% if user not in question.like.all %}
+            <button type="submit">Like</button>
+            {% else %}
+            <button type="submit">UnLike</button>
+            {% endif %}
+            <strong>{{question.like.all.count}} likes</strong>
+          </form>
+        </td>
+      </tr>
       {% if is_self %}
       <td>
-        <a href="{% url 'question:edit_question' question_id=question.id %}"
-          >Update</a
-        >
+        <a href="{% url 'question:edit_question' question_id=question.id %}">Update Question</a>
       </td>
       <td>
         <a href="{% url 'question:remove_question' question_id=question.id %}"
-          >Remove</a
-        >
+        >Remove Question</a>
       </td>
       {% endif %}
-    </tr>
-  </table>
+      </tr>
+    </table>
+  </div>
   <br />
-  <table border="2">
+  <table class="table-scroll small-first-col;table-view:fixed;">
+    <thead>
+    <tr>
+      <th>Answer</th>
+      <th>Answer by</th>
+      <th>Likes</th>
+      {% if answer_owner %}
+      <th>Update btn</th>
+      <th>Remove btn</th>
+      {% endif %}
+    </tr>
+    </thead>
+    <tbody>
     {% for ans in answer %}
     <tr>
-      <th>{{ans.id}}</th>
       <th>{{ans.answer}}</th>
       <th>{{ans.auth}}</th>
       <th>
         <form
-          action="{% url 'question:like' question_id=question.id %}"
-          method="POST"
+                action="{% url 'question:like' question_id=question.id %}"
+                method="POST"
         >
           {% csrf_token %}
           <input type="hidden" name="answer_like" value="{{ans.id}}" />
@@ -90,22 +244,26 @@
         </form>
         <strong>{{ans.like.all.count}} likes</strong>
       </th>
+      {%if answer_owner %}
       {% for a in answer_owner %} {% if a == ans %}
       <td>
-        <a
-          href="{% url 'question:edit_answer' question_id=question.id answer_id=ans.id %}"
-          >Update</a
-        >
+        <a href="{% url 'question:edit_answer' question_id=question.id answer_id=ans.id %}"
+        >Update</a>
       </td>
       <td>
         <a
-          href="{% url 'question:remove_answer' question_id=question.id answer_id=ans.id %}"
-          >Remove</a
+                href="{% url 'question:remove_answer' question_id=question.id answer_id=ans.id %}"
+        >Remove</a
         >
       </td>
+      {%else%}
+      <td>You can not update</td>
+      <td>yoy can not remove</td>
       {% endif %} {% endfor %}
+      {%endif%}
     </tr>
     {% endfor %}
+    </tbody>
   </table>
 </div>
 {% endblock %}

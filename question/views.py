@@ -37,18 +37,16 @@ def question_view(request, *args, **kwargs):
             question = Question.objects.get(id=question_id)
             answer = Answer.objects.filter(question=question)
             account = Account.objects.get(id=user.id)
+            answer_owner = answer.filter(auth=account)
         except Question.DoesNotExist:
             return HttpResponse("That question doesn't exist.")
 
         if question:
-            # question.views = question.views + 1
             context['question'] = question
-            # question.save()
 
         if answer:
             context['answer'] = answer
 
-        answer_owner = answer.filter(auth=account)
         is_self = True
         is_friend = False
         if user.is_authenticated and question.auth != user:

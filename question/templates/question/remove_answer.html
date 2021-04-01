@@ -4,6 +4,8 @@
 
 <style type="text/css">
 	.remove{
+	text-align:center;
+    align-items: center;
     border-radius: 25px;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -14,11 +16,80 @@
     backdrop-filter: blur(10px);
     align-items: center;
     /* padding: 2.4cm 5.5cm; */
-    width: 35cm;
-    height: 13cm;
-    margin-top: 1.3cm;
-    margin-left: 2.8cm;
+    width: 11cm;
+    height: 7cm;
+    margin-top: 5.7cm;
+    margin-left: 15.8cm;
     padding-bottom: 3.5em;
+  }
+  .remove label {
+    font-family: sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+  }
+  button {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: medium;
+    border: none;
+    padding: 1em;
+    outline: none;
+    color: black;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: 1.2em;
+    letter-spacing: 0em;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    background: none;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+    margin-left: 20px;
+    margin-top:30px;
+  }
+  button:before,
+  button:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 10em;
+    transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    height: 95%;
+    content: "";
+    z-index: -2;
+    background-size: 100% 100%;
+    background: white;
+  }
+  button:before {
+    filter: blur(10px);
+    transition: all 0.25s ease;
+    -webkit-animation: pulse 10s infinite ease;
+    animation: pulse 10s infinite ease;
+  }
+  button:after {
+    filter: blur(0.3px);
+  }
+  button:hover:before {
+    width: 105%;
+    height: 115%;
+  }
+  input{
+    align-items:center;
+    margin-left:130px;
+    margin-top:30px;
+    width:40%;
+  }
+  h2{
+    padding-top:20px;
   }
 </style>
 
@@ -28,8 +99,9 @@
       method="POST"
     >
       {% csrf_token %}
-      <a href="{% url 'account:home' %}">Cancel</a>
-      <button type="submit">Yes</button>
+        <h2>Do You want to delete your answer!!!</h2>
+        <button type="submit">Yes</button>
+       <input type=button value="Go back" onClick="javascript:history.go(-1);">
     </form>
 </div>
 {% endblock %}
